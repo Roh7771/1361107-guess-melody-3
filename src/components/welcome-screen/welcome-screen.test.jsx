@@ -1,18 +1,17 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "./app";
+import WelcomeScreen from "./welcome-screen";
 
 const Settings = {
-  ERRORS_COUNT: 4
+  ERRORS_COUNT: 5
 };
 
 it(`<Albums /> should render Cinderella`, () => {
   const tree = renderer
-    .create(<App
+    .create(<WelcomeScreen
       errorsCount={Settings.ERRORS_COUNT}
     />)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
-
