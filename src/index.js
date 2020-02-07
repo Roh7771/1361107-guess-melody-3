@@ -1,10 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/app/app.jsx";
-
-const Settings = {
-  ERRORS_COUNT: 3
-};
+import {Settings} from "./mocks/mock.js";
 
 ReactDOM.render(<App errorsCount={Settings.ERRORS_COUNT} />, document.getElementById(`root`)
 );
