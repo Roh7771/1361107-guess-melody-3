@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Albums /> should render Cinderella 1`] = `
+exports[`Should WelcomeScreen render correctly 1`] = `
 <section
   className="welcome"
 >
