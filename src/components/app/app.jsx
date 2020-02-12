@@ -7,7 +7,7 @@ import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.
 
 const welcomeButtonHandler = () => {};
 
-const App = ({errorsCount}) => {
+const App = ({errorsCount, questions}) => {
   return (
     <BrowserRouter>
       <Switch>
@@ -15,10 +15,10 @@ const App = ({errorsCount}) => {
           <WelcomeScreen errorsCount={errorsCount} onWelcomeButtonClick={welcomeButtonHandler} />
         </Route>
         <Route exact path="/dev-artist">
-          <ArtistQuestionScreen />
+          <ArtistQuestionScreen question={questions[1]} />
         </Route>
         <Route exact path="/dev-genre">
-          <GenreQuestionScreen />
+          <GenreQuestionScreen question={questions[0]} />
         </Route>
       </Switch>
     </BrowserRouter>
@@ -27,6 +27,10 @@ const App = ({errorsCount}) => {
 
 App.propTypes = {
   errorsCount: PropTypes.number.isRequired,
+  questions: PropTypes.arrayOf(PropTypes.shape({
+    type: PropTypes.string,
+    answers: PropTypes.array,
+  })).isRequired,
 };
 
 export default App;
