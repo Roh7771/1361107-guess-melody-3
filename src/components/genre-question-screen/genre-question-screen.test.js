@@ -2,7 +2,6 @@ import React from "react";
 import renderer from "react-test-renderer";
 import GenreQuestionScreen from "./genre-question-screen";
 
-let id = 1;
 const question = {
   type: `genre`,
   genre: `blues`,
@@ -10,22 +9,22 @@ const question = {
     {
       src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
       genre: `jazz`,
-      id: id++
+      id: 1
     },
     {
       src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
       genre: `rock`,
-      id: id++
+      id: 2
     },
     {
       src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
       genre: `jazz`,
-      id: id++
+      id: 3
     },
     {
       src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
       genre: `blues`,
-      id: id++
+      id: 4
     }
   ]
 };

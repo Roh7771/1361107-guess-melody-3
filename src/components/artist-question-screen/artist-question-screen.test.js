@@ -2,8 +2,6 @@ import React from "react";
 import renderer from "react-test-renderer";
 import ArtistQuestionScreen from "./artist-question-screen";
 
-const AVATAR_URL = `https://api.adorable.io/avatars/128`;
-let id = 1;
 const question = {
   type: `artist`,
   song: {
@@ -12,19 +10,22 @@ const question = {
   },
   answers: [
     {
-      picture: `${AVATAR_URL}/${Math.random()}`,
+      picture: `somePath`,
       artist: `John Snow`,
-      id: id++
+      src: `somePath`,
+      id: 1
     },
     {
-      picture: `${AVATAR_URL}/${Math.random()}`,
+      picture: `somePath`,
       artist: `Colin Boston`,
-      id: id++
+      src: `somePath`,
+      id: 2
     },
     {
-      picture: `${AVATAR_URL}/${Math.random()}`,
+      picture: `somePath`,
       artist: `Tom Hardy`,
-      id: id++
+      src: `somePath`,
+      id: 3
     }
   ]
 };

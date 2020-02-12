@@ -138,7 +138,7 @@ exports[`Should ArtistQuestionScreen render correctly 1`] = `
               <img
                 alt="John Snow"
                 className="artist__picture"
-                src="https://api.adorable.io/avatars/128/0.4038616055791029"
+                src="somePath"
               />
               John Snow
             </label>
@@ -161,7 +161,7 @@ exports[`Should ArtistQuestionScreen render correctly 1`] = `
               <img
                 alt="Colin Boston"
                 className="artist__picture"
-                src="https://api.adorable.io/avatars/128/0.6094787075450023"
+                src="somePath"
               />
               Colin Boston
             </label>
@@ -184,7 +184,7 @@ exports[`Should ArtistQuestionScreen render correctly 1`] = `
               <img
                 alt="Tom Hardy"
                 className="artist__picture"
-                src="https://api.adorable.io/avatars/128/0.4316569233682972"
+                src="somePath"
               />
               Tom Hardy
             </label>
