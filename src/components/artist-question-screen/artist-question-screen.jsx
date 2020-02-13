@@ -55,7 +55,7 @@ const ArtistQuestionScreen = ({question, onAnswer}) => {
                       id={`answer-${index}`}
                       onChange={(e) => {
                         e.preventDefault();
-                        onAnswer();
+                        onAnswer(question, el);
                       }}
                     />
                     <label className="artist__name" htmlFor={`answer-${index}`}>
