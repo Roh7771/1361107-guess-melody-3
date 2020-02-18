@@ -5,6 +5,11 @@ import PropTypes from "prop-types";
 import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen.jsx";
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
 import GameScreen from "../game-screen/game-screen.jsx";
+import AudioPlayer from "../audio-player/audio-player.jsx";
+import withAudioPlayer from "../../hocs/with-audio-player/with-audio-player.js";
+
+const GenreQuestionScreenWrapped = withAudioPlayer(GenreQuestionScreen);
+const ArtistQuestionScreenWrapped = withAudioPlayer(ArtistQuestionScreen);
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -37,7 +42,7 @@ class App extends React.PureComponent {
         case `artist`:
           return (
             <GameScreen type={question.type}>
-              <ArtistQuestionScreen
+              <ArtistQuestionScreenWrapped
                 question={question}
                 onAnswer={() => {
                   this.setState((prevState) => {
@@ -53,7 +58,7 @@ class App extends React.PureComponent {
         case `genre`:
           return (
             <GameScreen type={question.type}>
-              <GenreQuestionScreen
+              <GenreQuestionScreenWrapped
                 question={question}
                 onAnswer={() => {
                   this.setState((prevState) => {
@@ -84,6 +89,9 @@ class App extends React.PureComponent {
           </Route>
           <Route exact path="/dev-genre">
             <GenreQuestionScreen question={questions[0]} onAnswer={() => {}} />
+          </Route>
+          <Route exact path="/dev-player">
+            <AudioPlayer src="https://upload.wikimedia.org/wikipedia/commons/d/d6/KV.265_12_Variations_on_Ah_vous_dirai-je%2C_Maman_Mozart_JMC%2C_Han.ogg" isPlaying={false}></AudioPlayer>
           </Route>
         </Switch>
       </BrowserRouter>

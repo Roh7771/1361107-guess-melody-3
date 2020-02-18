@@ -11,7 +11,7 @@ class GenreQuestionScreen extends React.PureComponent {
   }
 
   render() {
-    const {question, onAnswer} = this.props;
+    const {question, onAnswer, renderPlayer} = this.props;
     const {genre, answers} = question;
     const {inputsStatus} = this.state;
     return (
@@ -27,13 +27,7 @@ class GenreQuestionScreen extends React.PureComponent {
           {answers.map((el, index) => {
             return (
               <div key={el.id} className="track">
-                <button
-                  className="track__button track__button--play"
-                  type="button"
-                ></button>
-                <div className="track__status">
-                  <audio src={el.src}></audio>
-                </div>
+                {renderPlayer(el.src, index)}
                 <div className="game__answer">
                   <input
                     className="game__input visually-hidden"
@@ -76,6 +70,7 @@ GenreQuestionScreen.propTypes = {
     genre: PropTypes.string,
     answers: PropTypes.array,
   }).isRequired,
+  renderPlayer: PropTypes.func.isRequired,
 };
 
 export default GenreQuestionScreen;
