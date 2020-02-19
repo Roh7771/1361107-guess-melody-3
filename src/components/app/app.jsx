@@ -85,13 +85,13 @@ class App extends React.PureComponent {
             {this._renderScreen()}
           </Route>
           <Route exact path="/dev-artist">
-            <ArtistQuestionScreen question={questions[1]} onAnswer={() => {}} />
+            <ArtistQuestionScreen renderPlayer={() => {}} question={questions[1]} onAnswer={() => {}} />
           </Route>
           <Route exact path="/dev-genre">
-            <GenreQuestionScreen question={questions[0]} onAnswer={() => {}} />
+            <GenreQuestionScreen renderPlayer={() => {}} question={questions[0]} onAnswer={() => {}} />
           </Route>
           <Route exact path="/dev-player">
-            <AudioPlayer src="https://upload.wikimedia.org/wikipedia/commons/d/d6/KV.265_12_Variations_on_Ah_vous_dirai-je%2C_Maman_Mozart_JMC%2C_Han.ogg" isPlaying={false}></AudioPlayer>
+            <AudioPlayer onPlayButtonClick={() => {}} src="https://upload.wikimedia.org/wikipedia/commons/d/d6/KV.265_12_Variations_on_Ah_vous_dirai-je%2C_Maman_Mozart_JMC%2C_Han.ogg" isPlaying={false}></AudioPlayer>
           </Route>
         </Switch>
       </BrowserRouter>
