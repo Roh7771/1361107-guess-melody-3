@@ -41,6 +41,7 @@ it(`When user answers artist question preventDefault() will work`, () => {
   const artistQuestion = shallow(<ArtistQuestionScreen
     onAnswer={onAnswer}
     question={question}
+    renderPlayer={() => {}}
   />);
 
   const inputTwo = artistQuestion.find(`input`).at(1);
@@ -66,6 +67,7 @@ it(`User answer passed to callback is correct`, () => {
   const genreQuestion = shallow(<ArtistQuestionScreen
     onAnswer={onAnswer}
     question={question}
+    renderPlayer={() => {}}
   />);
 
   const inputOne = genreQuestion.find(`input`).at(0);

@@ -1,197 +1,86 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Should ArtistQuestionScreen render correctly 1`] = `
-<main
-  className="app"
+<section
+  className="game__screen"
 >
-  <svg
-    style={
-      Object {
-        "left": "-1200em",
-        "position": "absolute",
-      }
-    }
-    xmlns="http://www.w3.org/2000/svg"
+  <h2
+    className="game__title"
   >
-    <filter
-      id="blur"
+    Кто исполняет эту песню?
+  </h2>
+  <form
+    className="game__artist"
+  >
+    <div
+      className="artist"
     >
-      <feGaussianBlur
-        in="SourceGraphic"
-        stdDeviation="5"
+      <input
+        className="artist__input visually-hidden"
+        id="answer-0"
+        name="answer"
+        onChange={[Function]}
+        type="radio"
+        value="answer-0"
       />
-      <feOffset
-        dx="0"
-        dy="0"
-      />
-      <feMerge>
-        <feMergeNode />
-        <feMergeNode
-          in="SourceGraphic"
+      <label
+        className="artist__name"
+        htmlFor="answer-0"
+      >
+        <img
+          alt="John Snow"
+          className="artist__picture"
+          src="somePath"
         />
-      </feMerge>
-    </filter>
-  </svg>
-  <section
-    className="main"
-    id="root"
-  >
-    <section
-      className="game game--artist"
+        John Snow
+      </label>
+    </div>
+    <div
+      className="artist"
     >
-      <header
-        className="game__header"
+      <input
+        className="artist__input visually-hidden"
+        id="answer-1"
+        name="answer"
+        onChange={[Function]}
+        type="radio"
+        value="answer-1"
+      />
+      <label
+        className="artist__name"
+        htmlFor="answer-1"
       >
-        <a
-          className="game__back"
-          href="#"
-        >
-          <span
-            className="visually-hidden"
-          >
-            Сыграть ещё раз
-          </span>
-          <img
-            alt="Угадай мелодию"
-            className="game__logo"
-            src="img/melody-logo-ginger.png"
-          />
-        </a>
-        <svg
-          className="timer"
-          viewBox="0 0 780 780"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle
-            className="timer__line"
-            cx="390"
-            cy="390"
-            r="370"
-            style={
-              Object {
-                "filter": "url(#blur)",
-                "transform": "rotate(-90deg) scaleY(-1)",
-                "transformOrigin": "center",
-              }
-            }
-          />
-        </svg>
-        <div
-          className="game__mistakes"
-        >
-          <div
-            className="wrong"
-          />
-          <div
-            className="wrong"
-          />
-          <div
-            className="wrong"
-          />
-        </div>
-      </header>
-      <section
-        className="game__screen"
+        <img
+          alt="Colin Boston"
+          className="artist__picture"
+          src="somePath"
+        />
+        Colin Boston
+      </label>
+    </div>
+    <div
+      className="artist"
+    >
+      <input
+        className="artist__input visually-hidden"
+        id="answer-2"
+        name="answer"
+        onChange={[Function]}
+        type="radio"
+        value="answer-2"
+      />
+      <label
+        className="artist__name"
+        htmlFor="answer-2"
       >
-        <h2
-          className="game__title"
-        >
-          Кто исполняет эту песню?
-        </h2>
-        <div
-          className="game__track"
-        >
-          <div
-            className="track"
-          >
-            <button
-              className="track__button track__button--play"
-              type="button"
-            />
-            <div
-              className="track__status"
-            >
-              <audio
-                src="https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg"
-              />
-            </div>
-          </div>
-        </div>
-        <form
-          className="game__artist"
-        >
-          <div
-            className="artist"
-          >
-            <input
-              className="artist__input visually-hidden"
-              id="answer-0"
-              name="answer"
-              onChange={[Function]}
-              type="radio"
-              value="answer-0"
-            />
-            <label
-              className="artist__name"
-              htmlFor="answer-0"
-            >
-              <img
-                alt="John Snow"
-                className="artist__picture"
-                src="somePath"
-              />
-              John Snow
-            </label>
-          </div>
-          <div
-            className="artist"
-          >
-            <input
-              className="artist__input visually-hidden"
-              id="answer-1"
-              name="answer"
-              onChange={[Function]}
-              type="radio"
-              value="answer-1"
-            />
-            <label
-              className="artist__name"
-              htmlFor="answer-1"
-            >
-              <img
-                alt="Colin Boston"
-                className="artist__picture"
-                src="somePath"
-              />
-              Colin Boston
-            </label>
-          </div>
-          <div
-            className="artist"
-          >
-            <input
-              className="artist__input visually-hidden"
-              id="answer-2"
-              name="answer"
-              onChange={[Function]}
-              type="radio"
-              value="answer-2"
-            />
-            <label
-              className="artist__name"
-              htmlFor="answer-2"
-            >
-              <img
-                alt="Tom Hardy"
-                className="artist__picture"
-                src="somePath"
-              />
-              Tom Hardy
-            </label>
-          </div>
-        </form>
-      </section>
-    </section>
-  </section>
-</main>
+        <img
+          alt="Tom Hardy"
+          className="artist__picture"
+          src="somePath"
+        />
+        Tom Hardy
+      </label>
+    </div>
+  </form>
+</section>
 `;

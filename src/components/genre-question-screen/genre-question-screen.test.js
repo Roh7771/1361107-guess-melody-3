@@ -31,7 +31,16 @@ const question = {
 
 it(`Should GenreQuestionScreen render correctly`, () => {
   const tree = renderer
-    .create(<GenreQuestionScreen question={question} onAnswer={() => {}} />)
+    .create(
+        <GenreQuestionScreen
+          question={question}
+          onAnswer={() => {}}
+          renderPlayer={() => {}}
+        />, {
+          createNodeMock: () => {
+            return {};
+          }
+        })
     .toJSON();
 
   expect(tree).toMatchSnapshot();
