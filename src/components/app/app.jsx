@@ -4,6 +4,12 @@ import WelcomeScreen from "../welcome-screen/welcome-screen.jsx";
 import PropTypes from "prop-types";
 import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen.jsx";
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
+import GameScreen from "../game-screen/game-screen.jsx";
+import AudioPlayer from "../audio-player/audio-player.jsx";
+import withAudioPlayer from "../../hocs/with-audio-player/with-audio-player.js";
+
+const GenreQuestionScreenWrapped = withAudioPlayer(GenreQuestionScreen);
+const ArtistQuestionScreenWrapped = withAudioPlayer(ArtistQuestionScreen);
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -35,30 +41,34 @@ class App extends React.PureComponent {
       switch (question.type) {
         case `artist`:
           return (
-            <ArtistQuestionScreen
-              question={question}
-              onAnswer={() => {
-                this.setState((prevState) => {
-                  return {
-                    step: prevState.step + 1
-                  };
-                });
-              }}
-            />
+            <GameScreen type={question.type}>
+              <ArtistQuestionScreenWrapped
+                question={question}
+                onAnswer={() => {
+                  this.setState((prevState) => {
+                    return {
+                      step: prevState.step + 1
+                    };
+                  });
+                }}
+              />
+            </GameScreen>
           );
 
         case `genre`:
           return (
-            <GenreQuestionScreen
-              question={question}
-              onAnswer={() => {
-                this.setState((prevState) => {
-                  return {
-                    step: prevState.step + 1
-                  };
-                });
-              }}
-            />
+            <GameScreen type={question.type}>
+              <GenreQuestionScreenWrapped
+                question={question}
+                onAnswer={() => {
+                  this.setState((prevState) => {
+                    return {
+                      step: prevState.step + 1
+                    };
+                  });
+                }}
+              />
+            </GameScreen>
           );
       }
     }
@@ -75,10 +85,13 @@ class App extends React.PureComponent {
             {this._renderScreen()}
           </Route>
           <Route exact path="/dev-artist">
-            <ArtistQuestionScreen question={questions[1]} onAnswer={() => {}} />
+            <ArtistQuestionScreen renderPlayer={() => {}} question={questions[1]} onAnswer={() => {}} />
           </Route>
           <Route exact path="/dev-genre">
-            <GenreQuestionScreen question={questions[0]} onAnswer={() => {}} />
+            <GenreQuestionScreen renderPlayer={() => {}} question={questions[0]} onAnswer={() => {}} />
+          </Route>
+          <Route exact path="/dev-player">
+            <AudioPlayer onPlayButtonClick={() => {}} src="https://upload.wikimedia.org/wikipedia/commons/d/d6/KV.265_12_Variations_on_Ah_vous_dirai-je%2C_Maman_Mozart_JMC%2C_Han.ogg" isPlaying={false}></AudioPlayer>
           </Route>
         </Switch>
       </BrowserRouter>
