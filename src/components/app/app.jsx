@@ -12,27 +12,20 @@ const GenreQuestionScreenWrapped = withAudioPlayer(GenreQuestionScreen);
 const ArtistQuestionScreenWrapped = withAudioPlayer(ArtistQuestionScreen);
 
 class App extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      step: -1
-    };
-    // this._renderScreen = this._renderScreen.bind(this);
-  }
-
   _renderScreen() {
-    const {step} = this.state;
-    const {errorsCount, questions} = this.props;
+    const {
+      errorsCount,
+      questions,
+      onWelcomeButtonClick,
+      onAnswer,
+      step,
+    } = this.props;
     const question = questions[step];
     if (step === -1 || step >= questions.length) {
       return (
         <WelcomeScreen
           errorsCount={errorsCount}
-          onWelcomeButtonClick={() => {
-            this.setState({
-              step: 0,
-            });
-          }}
+          onWelcomeButtonClick={onWelcomeButtonClick}
         />
       );
     }
@@ -44,13 +37,7 @@ class App extends React.PureComponent {
             <GameScreen type={question.type}>
               <ArtistQuestionScreenWrapped
                 question={question}
-                onAnswer={() => {
-                  this.setState((prevState) => {
-                    return {
-                      step: prevState.step + 1
-                    };
-                  });
-                }}
+                onAnswer={onAnswer}
               />
             </GameScreen>
           );
@@ -60,13 +47,7 @@ class App extends React.PureComponent {
             <GameScreen type={question.type}>
               <GenreQuestionScreenWrapped
                 question={question}
-                onAnswer={() => {
-                  this.setState((prevState) => {
-                    return {
-                      step: prevState.step + 1
-                    };
-                  });
-                }}
+                onAnswer={onAnswer}
               />
             </GameScreen>
           );
@@ -106,7 +87,10 @@ App.propTypes = {
         type: PropTypes.string,
         answers: PropTypes.array
       })
-  ).isRequired
+  ).isRequired,
+  onWelcomeButtonClick: PropTypes.func.isRequired,
+  onAnswer: PropTypes.func.isRequired,
+  step: PropTypes.number.isRequired,
 };
 
 export default App;
