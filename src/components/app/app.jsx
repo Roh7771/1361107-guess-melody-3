@@ -16,17 +16,17 @@ const ArtistQuestionScreenWrapped = withAudioPlayer(ArtistQuestionScreen);
 class App extends React.PureComponent {
   _renderScreen() {
     const {
-      errorsCount,
+      maxErrors,
       questions,
       onWelcomeButtonClick,
       onAnswer,
       step,
     } = this.props;
     const question = questions[step];
-    if (step === -1 || step >= questions.length) {
+    if (step === -1) {
       return (
         <WelcomeScreen
-          errorsCount={errorsCount}
+          errorsCount={maxErrors}
           onWelcomeButtonClick={onWelcomeButtonClick}
         />
       );
@@ -83,7 +83,7 @@ class App extends React.PureComponent {
 }
 
 App.propTypes = {
-  errorsCount: PropTypes.number.isRequired,
+  maxErrors: PropTypes.number.isRequired,
   questions: PropTypes.arrayOf(
       PropTypes.shape({
         type: PropTypes.string,
@@ -97,13 +97,16 @@ App.propTypes = {
 
 const mapStateToProps = (state) => ({
   step: state.step,
+  maxErrors: state.maxErrors,
+  questions: state.questions
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onWelcomeButtonClick() {
     dispatch(ActionCreator.incrementStep());
   },
-  onAnswer() {
+  onAnswer(question, answer) {
+    dispatch(ActionCreator.incrementMistakes(question, answer));
     dispatch(ActionCreator.incrementStep());
   }
 });
