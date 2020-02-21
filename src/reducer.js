@@ -5,7 +5,7 @@ import {extend} from "./utils";
 const initialState = {
   mistakes: 0,
   step: -1,
-  errorsCount: Settings.ERRORS_COUNT,
+  maxErrors: Settings.ERRORS_COUNT,
   questions: Questions,
 };
 
@@ -14,11 +14,39 @@ const ActionType = {
   INCREMENT_STEP: `INCREMENT_STEP`,
 };
 
-const ActionCreator = {
+const checkArtistQuestion = (question, answer) => {
+  return question.song.artist === answer.artist;
+};
+
+const checkGenreQuestion = (question, answer) => {
+  const correctAnswers = question.answers.map((el) => el.genre === question.genre);
+  return JSON.stringify(correctAnswers) === JSON.stringify(answer);
+};
+
+const ActionCreators = {
   incrementStep: () => ({
     type: ActionType.INCREMENT_STEP,
     payload: 1,
   }),
+
+  incrementMistakes: (question, answer) => {
+    switch (question.type) {
+      case `genre`:
+        return {
+          type: ActionType.INCREMENT_MISTAKES,
+          payload: checkGenreQuestion(question, answer) ? 0 : 1
+        };
+      case `artist`:
+        return {
+          type: ActionType.INCREMENT_MISTAKES,
+          payload: checkArtistQuestion(question, answer) ? 0 : 1
+        };
+    }
+    return {
+      type: ActionType.INCREMENT_MISTAKES,
+      payload: 0
+    };
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -29,11 +57,16 @@ const reducer = (state = initialState, action) => {
       });
 
     case ActionType.INCREMENT_STEP:
+      const nextStep = state.step + action.payload;
+
+      if (nextStep >= state.questions.length) {
+        return extend({}, initialState);
+      }
       return extend(state, {
-        step: state.step + action.payload,
+        step: nextStep,
       });
   }
   return state;
 };
 
-export {reducer, ActionCreator};
+export {reducer, ActionCreators, ActionType};
