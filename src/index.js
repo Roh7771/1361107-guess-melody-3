@@ -7,7 +7,10 @@ import Questions from "./mocks/questions";
 import reducer from "./reducer.js";
 import {Provider} from "react-redux";
 
-const store = createStore(reducer);
+const store = createStore(
+    reducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+);
 
 const AppWrapper = <Provider store={store}><App questions={Questions} errorsCount={Settings.ERRORS_COUNT} /></Provider>;
 
