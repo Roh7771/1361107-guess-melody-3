@@ -29,15 +29,15 @@ export default [
       src: `https://upload.wikimedia.org/wikipedia/commons/d/d6/KV.265_12_Variations_on_Ah_vous_dirai-je%2C_Maman_Mozart_JMC%2C_Han.ogg`,
     },
     answers: [{
-      picture: `${AVATAR_URL}/${Math.random()}`,
+      picture: `${AVATAR_URL}/A`,
       artist: `Mozart`,
       id: id++,
     }, {
-      picture: `${AVATAR_URL}/${Math.random()}`,
+      picture: `${AVATAR_URL}/AB`,
       artist: `Bach`,
       id: id++,
     }, {
-      picture: `${AVATAR_URL}/${Math.random()}`,
+      picture: `${AVATAR_URL}/A`,
       artist: `Beethoven`,
       id: id++,
     }],

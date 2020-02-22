@@ -1,6 +1,10 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "./app";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
+import {App} from "./app";
+
+const mockStore = configureStore([]);
 
 const AVATAR_URL = `https://api.adorable.io/avatars/128`;
 let id = 1;
@@ -13,17 +17,17 @@ const questions = [
     },
     answers: [
       {
-        picture: `${AVATAR_URL}/${Math.random()}`,
+        picture: `${AVATAR_URL}/A}`,
         artist: `John Snow`,
         id: id++
       },
       {
-        picture: `${AVATAR_URL}/${Math.random()}`,
+        picture: `${AVATAR_URL}/AB}`,
         artist: `Colin Boston`,
         id: id++
       },
       {
-        picture: `${AVATAR_URL}/${Math.random()}`,
+        picture: `${AVATAR_URL}/A}`,
         artist: `Tom Hardy`,
         id: id++
       }
@@ -57,8 +61,67 @@ const questions = [
   }
 ];
 
-it(`Render App`, () => {
-  const tree = renderer.create(<App errorsCount={4} questions={questions} />).toJSON();
+describe(`Render App`, () => {
+  it(`App render WelcomeScreen`, () => {
+    const store = mockStore({
+      mistakes: 0,
+    });
 
-  expect(tree).toMatchSnapshot();
+    const tree = renderer.create(
+        <Provider store={store}>
+          <App
+            onWelcomeButtonClick={() => {}}
+            onAnswer={() => {}}
+            maxErrors={3}
+            questions={questions}
+            step={-1}
+          />
+        </Provider>
+    ).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`App render GenreScreen`, () => {
+    const store = mockStore({
+      mistakes: 0,
+    });
+
+    const tree = renderer.create(
+        <Provider store={store}>
+          <App
+            onWelcomeButtonClick={() => {}}
+            onAnswer={() => {}}
+            maxErrors={3}
+            questions={questions}
+            step={0}
+          />
+        </Provider>, {
+          createNodeMock: () => {
+            return {};
+          }
+        }).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`App render ArtistScreen`, () => {
+    const store = mockStore({
+      mistakes: 0,
+    });
+
+    const tree = renderer.create(
+        <Provider store={store}>
+          <App
+            onWelcomeButtonClick={() => {}}
+            onAnswer={() => {}}
+            maxErrors={3}
+            questions={questions}
+            step={1}
+          />
+        </Provider>, {
+          createNodeMock: () => {
+            return {};
+          }
+        }).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });

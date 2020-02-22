@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`with type GameType.ARTIST 1`] = `
+exports[`GameScreen render correctly with artist type 1`] = `
 <main
   className="app"
 >
@@ -82,6 +82,95 @@ exports[`with type GameType.ARTIST 1`] = `
           <div
             className="wrong"
           />
+        </div>
+      </header>
+      <p>
+        What a wonderfull day
+      </p>
+    </section>
+  </section>
+</main>
+`;
+
+exports[`GameScreen render correctly with genre type 1`] = `
+<main
+  className="app"
+>
+  <svg
+    style={
+      Object {
+        "left": "-1200em",
+        "position": "absolute",
+      }
+    }
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <filter
+      id="blur"
+    >
+      <feGaussianBlur
+        in="SourceGraphic"
+        stdDeviation="5"
+      />
+      <feOffset
+        dx="0"
+        dy="0"
+      />
+      <feMerge>
+        <feMergeNode />
+        <feMergeNode
+          in="SourceGraphic"
+        />
+      </feMerge>
+    </filter>
+  </svg>
+  <section
+    className="main"
+    id="root"
+  >
+    <section
+      className="game game--genre}"
+    >
+      <header
+        className="game__header"
+      >
+        <a
+          className="game__back"
+          href="#"
+        >
+          <span
+            className="visually-hidden"
+          >
+            Сыграть ещё раз
+          </span>
+          <img
+            alt="Угадай мелодию"
+            className="game__logo"
+            src="img/melody-logo-ginger.png"
+          />
+        </a>
+        <svg
+          className="timer"
+          viewBox="0 0 780 780"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            className="timer__line"
+            cx="390"
+            cy="390"
+            r="370"
+            style={
+              Object {
+                "filter": "url(#blur)",
+                "transform": "rotate(-90deg) scaleY(-1)",
+                "transformOrigin": "center",
+              }
+            }
+          />
+        </svg>
+        <div
+          className="game__mistakes"
+        >
           <div
             className="wrong"
           />
