@@ -2,18 +2,9 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 class GenreQuestionScreen extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      inputsStatus: [false, false, false, false]
-    };
-  }
-
   render() {
-    const {question, onAnswer, renderPlayer} = this.props;
+    const {question, onAnswer, renderPlayer, inputsStatus, onInputChange} = this.props;
     const {genre, answers} = question;
-    const {inputsStatus} = this.state;
     return (
       <section className="game__screen">
         <h2 className="game__title">Выберите {genre} треки</h2>
@@ -21,7 +12,7 @@ class GenreQuestionScreen extends React.PureComponent {
           className="game__tracks"
           onSubmit={(e) => {
             e.preventDefault();
-            onAnswer(question, this.state.inputsStatus);
+            onAnswer();
           }}
         >
           {answers.map((el, index) => {
@@ -36,12 +27,8 @@ class GenreQuestionScreen extends React.PureComponent {
                     checked={inputsStatus[index]}
                     value={`answer-${index + 1}`}
                     id={`answer-${index + 1}`}
-                    onChange={(e) => {
-                      const updatedInputStatus = [...inputsStatus];
-                      updatedInputStatus[index] = e.target.checked;
-                      this.setState({
-                        inputsStatus: updatedInputStatus,
-                      });
+                    onChange={() => {
+                      onInputChange(index);
                     }}
                   />
                   <label
@@ -71,6 +58,8 @@ GenreQuestionScreen.propTypes = {
     answers: PropTypes.array,
   }).isRequired,
   renderPlayer: PropTypes.func.isRequired,
+  inputsStatus: PropTypes.arrayOf(PropTypes.bool).isRequired,
+  onInputChange: PropTypes.func.isRequired,
 };
 
 export default GenreQuestionScreen;

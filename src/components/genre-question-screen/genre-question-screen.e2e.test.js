@@ -56,24 +56,27 @@ it(`When user answers genre question form is not sent`, () => {
 it(`User answer passed to callback is consistent with "userAnswer" prop`, () => {
   const {question} = mock;
   const onAnswer = jest.fn();
+  const onInputChange = jest.fn();
   const userAnswer = [false, true, false, false];
 
   const genreQuestion = shallow(<GenreQuestionScreen
     onAnswer={onAnswer}
     question={question}
     renderPlayer={() => {}}
+    inputsStatus={userAnswer}
+    onInputChange={onInputChange}
   />);
 
   const form = genreQuestion.find(`form`);
   const inputTwo = genreQuestion.find(`input`).at(1);
 
-  inputTwo.simulate(`change`, {target: {checked: true}});
+  inputTwo.simulate(`change`);
   form.simulate(`submit`, {preventDefault() {}});
 
   expect(onAnswer).toHaveBeenCalledTimes(1);
+  expect(onInputChange).toHaveBeenCalledTimes(1);
 
-  expect(onAnswer.mock.calls[0][0]).toMatchObject(question);
-  expect(onAnswer.mock.calls[0][1]).toMatchObject(userAnswer);
+  expect(onAnswer.mock.calls[0][0]).toEqual(void 0);
 
   expect(
       genreQuestion.find(`input`).map((it) => it.prop(`checked`))
