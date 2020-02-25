@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import GenreQuestionItem from "../genre-question-item/genre-question-item";
 
 class GenreQuestionScreen extends React.PureComponent {
   render() {
@@ -17,28 +18,14 @@ class GenreQuestionScreen extends React.PureComponent {
         >
           {answers.map((el, index) => {
             return (
-              <div key={el.id} className="track">
-                {renderPlayer(el.src, index)}
-                <div className="game__answer">
-                  <input
-                    className="game__input visually-hidden"
-                    type="checkbox"
-                    name="answer"
-                    checked={inputsStatus[index]}
-                    value={`answer-${index + 1}`}
-                    id={`answer-${index + 1}`}
-                    onChange={() => {
-                      onInputChange(index);
-                    }}
-                  />
-                  <label
-                    className="game__check"
-                    htmlFor={`answer-${index + 1}`}
-                  >
-                    Отметить
-                  </label>
-                </div>
-              </div>
+              <GenreQuestionItem
+                key={el.id}
+                answer={el}
+                index={index}
+                renderPlayer={renderPlayer}
+                inputsStatus={inputsStatus}
+                onInputChange={onInputChange}
+              />
             );
           })}
 
