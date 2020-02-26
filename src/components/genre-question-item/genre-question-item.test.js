@@ -15,6 +15,7 @@ it(`GenreQuestionItem is rendered correctly`, () => {
       onChange={() => {}}
       renderPlayer={() => {}}
       inputsStatus={[false, false, false, false]}
+      onInputChange={() => {}}
     />
   )).toJSON();
 
