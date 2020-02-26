@@ -1,49 +1,5 @@
 import {reducer, ActionCreators, ActionType} from "./reducer.js";
-
-const AVATAR_URL = `https://api.adorable.io/avatars/128`;
-let id = 1;
-const questions = [
-  {
-    type: `genre`,
-    genre: `rock`,
-    answers: [{
-      src: `https://upload.wikimedia.org/wikipedia/commons/2/26/John_Hoopie_-_Don%27t_You_Know.ogg`,
-      genre: `rock`,
-      id: id++,
-    }, {
-      src: `https://upload.wikimedia.org/wikipedia/commons/4/4d/2009-05-29MedBoogie.ogg`,
-      genre: `blues`,
-      id: id++,
-    }, {
-      src: `https://upload.wikimedia.org/wikipedia/commons/2/21/03_Turning_Points.ogg`,
-      genre: `jazz`,
-      id: id++,
-    }, {
-      src: `https://upload.wikimedia.org/wikipedia/commons/d/d7/Caleb_Baker_-_Crush_Song.ogg`,
-      genre: `rock`,
-      id: id++,
-    }],
-  }, {
-    type: `artist`,
-    song: {
-      artist: `Mozart`,
-      src: `https://upload.wikimedia.org/wikipedia/commons/d/d6/KV.265_12_Variations_on_Ah_vous_dirai-je%2C_Maman_Mozart_JMC%2C_Han.ogg`,
-    },
-    answers: [{
-      picture: `${AVATAR_URL}/A`,
-      artist: `Mozart`,
-      id: id++,
-    }, {
-      picture: `${AVATAR_URL}/AB`,
-      artist: `Bach`,
-      id: id++,
-    }, {
-      picture: `${AVATAR_URL}/A`,
-      artist: `Beethoven`,
-      id: id++,
-    }],
-  }
-];
+import questions from "./mocks/questions";
 
 describe(`Reducer work correctly`, () => {
   it(`Reducer return initial state for the first time`, () => {
@@ -74,11 +30,10 @@ describe(`Reducer work correctly`, () => {
     });
   });
 
-  it(`Reducer reset step counter when questions are not left`, () => {
-    expect(reducer({step: questions.length - 1, questions}, {type: ActionType.INCREMENT_STEP, payload: 1})).toEqual({
-      step: -1,
+  it(`Reducer reset step and mistake counter when reset action is called`, () => {
+    expect(reducer({step: questions.length, questions, mistakes: 2}, {type: ActionType.RESET_GAME})).toEqual({
+      step: 0,
       questions,
-      maxErrors: 3,
       mistakes: 0
     });
   });
@@ -204,6 +159,14 @@ describe(`ActionCreators should work correctly`, () => {
         {
           type: ActionType.INCREMENT_MISTAKES,
           payload: 1
+        }
+    );
+  });
+
+  it(`ActionCreators for reseting game returns correct action`, () => {
+    expect(ActionCreators.resetGame()).toEqual(
+        {
+          type: ActionType.RESET_GAME,
         }
     );
   });

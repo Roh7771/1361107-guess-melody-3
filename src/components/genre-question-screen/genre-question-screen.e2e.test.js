@@ -41,6 +41,8 @@ it(`When user answers genre question form is not sent`, () => {
     onAnswer={onAnswer}
     question={question}
     renderPlayer={() => {}}
+    inputsStatus={[false, false, false, false]}
+    onInputChange={() => {}}
   />);
 
   const form = genreQuestion.find(`form`);

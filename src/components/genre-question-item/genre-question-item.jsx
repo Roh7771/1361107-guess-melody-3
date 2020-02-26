@@ -39,7 +39,7 @@ GenreQuestionItem.propTypes = {
   index: PropTypes.number.isRequired,
   onInputChange: PropTypes.func.isRequired,
   renderPlayer: PropTypes.func.isRequired,
-  inputsStatus: PropTypes.bool.isRequired,
+  inputsStatus: PropTypes.arrayOf(PropTypes.bool).isRequired,
 };
 
 export default GenreQuestionItem;
