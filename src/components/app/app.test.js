@@ -58,6 +58,32 @@ const questions = [
         id: id++
       }
     ]
+  },
+  {
+    type: `genre`,
+    genre: `blues`,
+    answers: [
+      {
+        src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+        genre: `jazz`,
+        id: id++
+      },
+      {
+        src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+        genre: `rock`,
+        id: id++
+      },
+      {
+        src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+        genre: `jazz`,
+        id: id++
+      },
+      {
+        src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+        genre: `blues`,
+        id: id++
+      }
+    ]
   }
 ];
 
@@ -75,6 +101,8 @@ describe(`Render App`, () => {
             maxErrors={3}
             questions={questions}
             step={-1}
+            mistakes={0}
+            onReplayButtonClick={() => {}}
           />
         </Provider>
     ).toJSON();
@@ -94,6 +122,8 @@ describe(`Render App`, () => {
             maxErrors={3}
             questions={questions}
             step={0}
+            mistakes={0}
+            onReplayButtonClick={() => {}}
           />
         </Provider>, {
           createNodeMock: () => {
@@ -116,6 +146,56 @@ describe(`Render App`, () => {
             maxErrors={3}
             questions={questions}
             step={1}
+            mistakes={0}
+            onReplayButtonClick={() => {}}
+          />
+        </Provider>, {
+          createNodeMock: () => {
+            return {};
+          }
+        }).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`App render WinScreen`, () => {
+    const store = mockStore({
+      mistakes: 0,
+    });
+
+    const tree = renderer.create(
+        <Provider store={store}>
+          <App
+            onWelcomeButtonClick={() => {}}
+            onAnswer={() => {}}
+            maxErrors={3}
+            questions={questions}
+            step={questions.length}
+            mistakes={0}
+            onReplayButtonClick={() => {}}
+          />
+        </Provider>, {
+          createNodeMock: () => {
+            return {};
+          }
+        }).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`App render GameOverScreen`, () => {
+    const store = mockStore({
+      mistakes: 0,
+    });
+
+    const tree = renderer.create(
+        <Provider store={store}>
+          <App
+            onWelcomeButtonClick={() => {}}
+            onAnswer={() => {}}
+            maxErrors={3}
+            questions={questions}
+            step={0}
+            mistakes={4}
+            onReplayButtonClick={() => {}}
           />
         </Provider>, {
           createNodeMock: () => {

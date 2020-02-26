@@ -5,13 +5,15 @@ import PropTypes from "prop-types";
 import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen.jsx";
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
 import GameScreen from "../game-screen/game-screen.jsx";
-import AudioPlayer from "../audio-player/audio-player.jsx";
-import withAudioPlayer from "../../hocs/with-audio-player/with-audio-player.js";
 import {ActionCreators} from "../../reducer.js";
 import {connect} from "react-redux";
+import withActivePlayer from "../../hocs/with-active-player/with-active-player.js";
+import withUserAnswer from "../../hocs/with-user-answer/with-user-answer.js";
+import GameOverScreen from "../game-over-screen/game-over-screen.jsx";
+import WinScreen from "../win-screen/win-screen.jsx";
 
-const GenreQuestionScreenWrapped = withAudioPlayer(GenreQuestionScreen);
-const ArtistQuestionScreenWrapped = withAudioPlayer(ArtistQuestionScreen);
+const GenreQuestionScreenWrapped = withActivePlayer(withUserAnswer(GenreQuestionScreen));
+const ArtistQuestionScreenWrapped = withActivePlayer(ArtistQuestionScreen);
 
 class App extends React.PureComponent {
   _renderScreen() {
@@ -21,6 +23,8 @@ class App extends React.PureComponent {
       onWelcomeButtonClick,
       onAnswer,
       step,
+      mistakes,
+      onReplayButtonClick
     } = this.props;
     const question = questions[step];
     if (step === -1) {
@@ -28,6 +32,24 @@ class App extends React.PureComponent {
         <WelcomeScreen
           errorsCount={maxErrors}
           onWelcomeButtonClick={onWelcomeButtonClick}
+        />
+      );
+    }
+
+    if (mistakes > maxErrors) {
+      return (
+        <GameOverScreen
+          onReplayButtonClick={onReplayButtonClick}
+        />
+      );
+    }
+
+    if (step >= questions.length) {
+      return (
+        <WinScreen
+          mistakes={mistakes}
+          questionsAmount={questions.length}
+          onReplayButtonClick={onReplayButtonClick}
         />
       );
     }
@@ -71,10 +93,7 @@ class App extends React.PureComponent {
             <ArtistQuestionScreen renderPlayer={() => {}} question={questions[1]} onAnswer={() => {}} />
           </Route>
           <Route exact path="/dev-genre">
-            <GenreQuestionScreen renderPlayer={() => {}} question={questions[0]} onAnswer={() => {}} />
-          </Route>
-          <Route exact path="/dev-player">
-            <AudioPlayer onPlayButtonClick={() => {}} src="https://upload.wikimedia.org/wikipedia/commons/d/d6/KV.265_12_Variations_on_Ah_vous_dirai-je%2C_Maman_Mozart_JMC%2C_Han.ogg" isPlaying={false}></AudioPlayer>
+            <GenreQuestionScreen inputsStatus={[false, false, false, false]} onInputChange={() => {}} renderPlayer={() => {}} question={questions[0]} onAnswer={() => {}} />
           </Route>
         </Switch>
       </BrowserRouter>
@@ -93,12 +112,15 @@ App.propTypes = {
   onWelcomeButtonClick: PropTypes.func.isRequired,
   onAnswer: PropTypes.func.isRequired,
   step: PropTypes.number.isRequired,
+  mistakes: PropTypes.number.isRequired,
+  onReplayButtonClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   step: state.step,
   maxErrors: state.maxErrors,
-  questions: state.questions
+  questions: state.questions,
+  mistakes: state.mistakes,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -108,6 +130,9 @@ const mapDispatchToProps = (dispatch) => ({
   onAnswer(question, answer) {
     dispatch(ActionCreators.incrementMistakes(question, answer));
     dispatch(ActionCreators.incrementStep());
+  },
+  onReplayButtonClick() {
+    dispatch(ActionCreators.resetGame());
   }
 });
 
