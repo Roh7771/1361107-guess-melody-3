@@ -11,7 +11,7 @@ const ArtistQuestionScreen = ({question, onAnswer, renderPlayer}) => {
       <form className="game__artist">
         {answers.map((el, index) => {
           return (
-            <div key={el.id} className="artist">
+            <div key={`answer-${index}`} className="artist">
               <input
                 className="artist__input visually-hidden"
                 type="radio" name="answer" value={`answer-${index}`}

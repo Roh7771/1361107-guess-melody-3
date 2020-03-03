@@ -5,12 +5,14 @@ import PropTypes from "prop-types";
 import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen.jsx";
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
 import GameScreen from "../game-screen/game-screen.jsx";
-import {ActionCreators} from "../../reducer.js";
+import {ActionCreators} from "../../reducer/game/game.js";
 import {connect} from "react-redux";
 import withActivePlayer from "../../hocs/with-active-player/with-active-player.js";
 import withUserAnswer from "../../hocs/with-user-answer/with-user-answer.js";
 import GameOverScreen from "../game-over-screen/game-over-screen.jsx";
 import WinScreen from "../win-screen/win-screen.jsx";
+import {getStep, getMaxMistakes, getMistakes} from "../../reducer/game/selectors.js";
+import {getQuestions} from "../../reducer/data/selectors.js";
 
 const GenreQuestionScreenWrapped = withActivePlayer(withUserAnswer(GenreQuestionScreen));
 const ArtistQuestionScreenWrapped = withActivePlayer(ArtistQuestionScreen);
@@ -18,7 +20,7 @@ const ArtistQuestionScreenWrapped = withActivePlayer(ArtistQuestionScreen);
 class App extends React.PureComponent {
   _renderScreen() {
     const {
-      maxErrors,
+      maxMistakes,
       questions,
       onWelcomeButtonClick,
       onAnswer,
@@ -30,13 +32,13 @@ class App extends React.PureComponent {
     if (step === -1) {
       return (
         <WelcomeScreen
-          errorsCount={maxErrors}
+          errorsCount={maxMistakes}
           onWelcomeButtonClick={onWelcomeButtonClick}
         />
       );
     }
 
-    if (mistakes > maxErrors) {
+    if (mistakes > maxMistakes) {
       return (
         <GameOverScreen
           onReplayButtonClick={onReplayButtonClick}
@@ -82,7 +84,6 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const {questions} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -90,10 +91,10 @@ class App extends React.PureComponent {
             {this._renderScreen()}
           </Route>
           <Route exact path="/dev-artist">
-            <ArtistQuestionScreen renderPlayer={() => {}} question={questions[1]} onAnswer={() => {}} />
+            <ArtistQuestionScreen renderPlayer={() => {}} question={[{}][0]} onAnswer={() => {}} />
           </Route>
           <Route exact path="/dev-genre">
-            <GenreQuestionScreen inputsStatus={[false, false, false, false]} onInputChange={() => {}} renderPlayer={() => {}} question={questions[0]} onAnswer={() => {}} />
+            <GenreQuestionScreen inputsStatus={[false, false, false, false]} onInputChange={() => {}} renderPlayer={() => {}} question={[{}][0]} onAnswer={() => {}} />
           </Route>
         </Switch>
       </BrowserRouter>
@@ -102,7 +103,7 @@ class App extends React.PureComponent {
 }
 
 App.propTypes = {
-  maxErrors: PropTypes.number.isRequired,
+  maxMistakes: PropTypes.number.isRequired,
   questions: PropTypes.arrayOf(
       PropTypes.shape({
         type: PropTypes.string,
@@ -117,10 +118,10 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  step: state.step,
-  maxErrors: state.maxErrors,
-  questions: state.questions,
-  mistakes: state.mistakes,
+  step: getStep(state),
+  maxMistakes: getMaxMistakes(state),
+  questions: getQuestions(state),
+  mistakes: getMistakes(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

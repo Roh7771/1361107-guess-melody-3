@@ -19,7 +19,7 @@ class GenreQuestionScreen extends React.PureComponent {
           {answers.map((el, index) => {
             return (
               <GenreQuestionItem
-                key={el.id}
+                key={`answer-${index}`}
                 answer={el}
                 index={index}
                 renderPlayer={renderPlayer}
