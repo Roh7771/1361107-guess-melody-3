@@ -1,7 +1,9 @@
+import {getQuestions, getShaffledQuestions} from "./selectors";
+
 const AVATAR_URL = `https://api.adorable.io/avatars/128`;
 let id = 1;
 
-export default [
+const questions = [
   {
     type: `genre`,
     genre: `rock`,
@@ -103,3 +105,15 @@ export default [
     }],
   }
 ];
+
+describe(`Selector`, () => {
+  it(`getQuestions must return questions`, () => {
+    expect(getQuestions({DATA: {questions}})).toEqual(questions);
+  });
+
+  it(`getShaffledQuestions must return shaffled questions`, () => {
+    expect(getShaffledQuestions({DATA: {questions}})).not.toEqual(questions);
+  });
+});
+
+

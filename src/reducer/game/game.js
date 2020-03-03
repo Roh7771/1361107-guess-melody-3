@@ -1,18 +1,15 @@
-import Settings from "./mocks/settings";
-import Questions from "./mocks/questions";
-import {extend} from "./utils";
+import {extend} from "../../utils";
 
 const initialState = {
   mistakes: 0,
   step: -1,
-  maxErrors: Settings.ERRORS_COUNT,
-  questions: Questions,
+  maxMistakes: 3,
 };
 
 const ActionType = {
   INCREMENT_MISTAKES: `INCREMENT_MISTAKES`,
   INCREMENT_STEP: `INCREMENT_STEP`,
-  RESET_GAME: `RESET_GAME`
+  RESET_GAME: `RESET_GAME`,
 };
 
 const checkArtistQuestion = (question, answer) => {
