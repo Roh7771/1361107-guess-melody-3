@@ -38,7 +38,12 @@ const withAudio = (Component) => {
       });
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
+      const {src} = this.props;
+      const audio = this._audioRef.current;
+      if (prevProps.src !== src) {
+        audio.src = src;
+      }
       if (this.props.isPlaying) {
         this._audioRef.current.play();
       }
