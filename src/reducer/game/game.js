@@ -1,19 +1,15 @@
-import Settings from "./mocks/settings";
-import Questions from "./mocks/questions";
-import {extend} from "./utils";
+import {extend} from "../../utils";
 
 const initialState = {
   mistakes: 0,
   step: -1,
-  maxErrors: Settings.ERRORS_COUNT,
-  questions: Questions,
+  maxMistakes: 3,
 };
 
 const ActionType = {
   INCREMENT_MISTAKES: `INCREMENT_MISTAKES`,
   INCREMENT_STEP: `INCREMENT_STEP`,
   RESET_GAME: `RESET_GAME`,
-  LOAD_QUESTIONS: `LOAD_QUESTIONS`,
 };
 
 const checkArtistQuestion = (question, answer) => {
@@ -30,13 +26,6 @@ const ActionCreators = {
     type: ActionType.INCREMENT_STEP,
     payload: 1,
   }),
-
-  loadQuestions: (questions) => {
-    return {
-      type: ActionType.LOAD_QUESTIONS,
-      payload: questions,
-    };
-  },
 
   resetGame: () => ({
     type: ActionType.RESET_GAME
@@ -69,11 +58,6 @@ const reducer = (state = initialState, action) => {
         mistakes: state.mistakes + action.payload,
       });
 
-    case ActionType.LOAD_QUESTIONS:
-      return extend(state, {
-        questions: action.payload
-      });
-
     case ActionType.INCREMENT_STEP:
       return extend(state, {
         step: state.step + action.payload,
@@ -88,13 +72,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-const Operation = {
-  loadQuestions: () => (dispatch, getState, api) => {
-    return api.get(`/questions`)
-      .then((response) => {
-        dispatch(ActionCreators.loadQuestions(response.data));
-      });
-  },
-};
-
-export {reducer, ActionCreators, ActionType, Operation};
+export {reducer, ActionCreators, ActionType};
