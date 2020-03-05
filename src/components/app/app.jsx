@@ -13,6 +13,9 @@ import GameOverScreen from "../game-over-screen/game-over-screen.jsx";
 import WinScreen from "../win-screen/win-screen.jsx";
 import {getStep, getMaxMistakes, getMistakes} from "../../reducer/game/selectors.js";
 import {getQuestions} from "../../reducer/data/selectors.js";
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import {Operation as UserOperation, AuthorizationStatus} from "../../reducer/user/user.js";
+import AuthScreen from "../auth-screen/auth-screen.jsx";
 
 const GenreQuestionScreenWrapped = withActivePlayer(withUserAnswer(GenreQuestionScreen));
 const ArtistQuestionScreenWrapped = withActivePlayer(ArtistQuestionScreen);
@@ -20,6 +23,8 @@ const ArtistQuestionScreenWrapped = withActivePlayer(ArtistQuestionScreen);
 class App extends React.PureComponent {
   _renderScreen() {
     const {
+      login,
+      authorizationStatus,
       maxMistakes,
       questions,
       onWelcomeButtonClick,
@@ -47,13 +52,24 @@ class App extends React.PureComponent {
     }
 
     if (step >= questions.length) {
-      return (
-        <WinScreen
-          mistakes={mistakes}
-          questionsAmount={questions.length}
-          onReplayButtonClick={onReplayButtonClick}
-        />
-      );
+      if (authorizationStatus === AuthorizationStatus.AUTH) {
+        return (
+          <WinScreen
+            questionsCount={questions.length}
+            mistakesCount={mistakes}
+            onReplayButtonClick={onReplayButtonClick}
+          />
+        );
+      } else if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+        return (
+          <AuthScreen
+            onReplayButtonClick={onReplayButtonClick}
+            onSubmit={login}
+          />
+        );
+      }
+
+      return null;
     }
 
     if (question) {
@@ -84,6 +100,7 @@ class App extends React.PureComponent {
   }
 
   render() {
+    const {onReplayButtonClick, login} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -95,6 +112,9 @@ class App extends React.PureComponent {
           </Route>
           <Route exact path="/dev-genre">
             <GenreQuestionScreen inputsStatus={[false, false, false, false]} onInputChange={() => {}} renderPlayer={() => {}} question={[{}][0]} onAnswer={() => {}} />
+          </Route>
+          <Route exact path="/dev-auth">
+            <AuthScreen onReplayButtonClick={onReplayButtonClick} onSubmit={login} />
           </Route>
         </Switch>
       </BrowserRouter>
@@ -115,9 +135,12 @@ App.propTypes = {
   step: PropTypes.number.isRequired,
   mistakes: PropTypes.number.isRequired,
   onReplayButtonClick: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
   step: getStep(state),
   maxMistakes: getMaxMistakes(state),
   questions: getQuestions(state),
@@ -125,6 +148,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  login(authData) {
+    dispatch(UserOperation.login(authData));
+  },
   onWelcomeButtonClick() {
     dispatch(ActionCreators.incrementStep());
   },
