@@ -3,6 +3,8 @@ import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {App} from "./app";
+import NameSpace from "../../reducer/name-space";
+import {AuthorizationStatus} from "../../reducer/user/user";
 
 const mockStore = configureStore([]);
 
@@ -90,7 +92,7 @@ const questions = [
 describe(`Render App`, () => {
   it(`App render WelcomeScreen`, () => {
     const store = mockStore({
-      mistakes: 0,
+      [NameSpace.GAME]: {mistakes: 0},
     });
 
     const tree = renderer.create(
@@ -98,11 +100,14 @@ describe(`Render App`, () => {
           <App
             onWelcomeButtonClick={() => {}}
             onAnswer={() => {}}
-            maxErrors={3}
             questions={questions}
             step={-1}
             mistakes={0}
             onReplayButtonClick={() => {}}
+            maxMistakes={3}
+            login={() => {}}
+            authorizationStatus={AuthorizationStatus.NO_AUTH}
+            onSubmit={() => {}}
           />
         </Provider>
     ).toJSON();
@@ -111,7 +116,7 @@ describe(`Render App`, () => {
 
   it(`App render GenreScreen`, () => {
     const store = mockStore({
-      mistakes: 0,
+      [NameSpace.GAME]: {mistakes: 0},
     });
 
     const tree = renderer.create(
@@ -119,11 +124,14 @@ describe(`Render App`, () => {
           <App
             onWelcomeButtonClick={() => {}}
             onAnswer={() => {}}
-            maxErrors={3}
             questions={questions}
             step={0}
             mistakes={0}
             onReplayButtonClick={() => {}}
+            maxMistakes={3}
+            login={() => {}}
+            authorizationStatus={AuthorizationStatus.NO_AUTH}
+            onSubmit={() => {}}
           />
         </Provider>, {
           createNodeMock: () => {
@@ -135,7 +143,7 @@ describe(`Render App`, () => {
 
   it(`App render ArtistScreen`, () => {
     const store = mockStore({
-      mistakes: 0,
+      [NameSpace.GAME]: {mistakes: 0},
     });
 
     const tree = renderer.create(
@@ -143,11 +151,14 @@ describe(`Render App`, () => {
           <App
             onWelcomeButtonClick={() => {}}
             onAnswer={() => {}}
-            maxErrors={3}
             questions={questions}
             step={1}
             mistakes={0}
             onReplayButtonClick={() => {}}
+            maxMistakes={3}
+            login={() => {}}
+            authorizationStatus={AuthorizationStatus.NO_AUTH}
+            onSubmit={() => {}}
           />
         </Provider>, {
           createNodeMock: () => {
@@ -159,7 +170,7 @@ describe(`Render App`, () => {
 
   it(`App render WinScreen`, () => {
     const store = mockStore({
-      mistakes: 0,
+      [NameSpace.GAME]: {mistakes: 0},
     });
 
     const tree = renderer.create(
@@ -167,11 +178,41 @@ describe(`Render App`, () => {
           <App
             onWelcomeButtonClick={() => {}}
             onAnswer={() => {}}
-            maxErrors={3}
             questions={questions}
             step={questions.length}
             mistakes={0}
             onReplayButtonClick={() => {}}
+            maxMistakes={3}
+            login={() => {}}
+            authorizationStatus={AuthorizationStatus.AUTH}
+            onSubmit={() => {}}
+          />
+        </Provider>, {
+          createNodeMock: () => {
+            return {};
+          }
+        }).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`App render AuthScreen`, () => {
+    const store = mockStore({
+      [NameSpace.GAME]: {mistakes: 0},
+    });
+
+    const tree = renderer.create(
+        <Provider store={store}>
+          <App
+            onWelcomeButtonClick={() => {}}
+            onAnswer={() => {}}
+            questions={questions}
+            step={questions.length}
+            mistakes={0}
+            onReplayButtonClick={() => {}}
+            maxMistakes={3}
+            login={() => {}}
+            authorizationStatus={AuthorizationStatus.NO_AUTH}
+            onSubmit={() => {}}
           />
         </Provider>, {
           createNodeMock: () => {
@@ -183,7 +224,7 @@ describe(`Render App`, () => {
 
   it(`App render GameOverScreen`, () => {
     const store = mockStore({
-      mistakes: 0,
+      [NameSpace.GAME]: {mistakes: 0},
     });
 
     const tree = renderer.create(
@@ -191,11 +232,14 @@ describe(`Render App`, () => {
           <App
             onWelcomeButtonClick={() => {}}
             onAnswer={() => {}}
-            maxErrors={3}
             questions={questions}
             step={0}
             mistakes={4}
             onReplayButtonClick={() => {}}
+            maxMistakes={3}
+            login={() => {}}
+            authorizationStatus={AuthorizationStatus.NO_AUTH}
+            onSubmit={() => {}}
           />
         </Provider>, {
           createNodeMock: () => {

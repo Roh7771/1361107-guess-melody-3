@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 
 
 const WinScreen = (props) => {
-  const {questionsAmount, mistakes, onReplayButtonClick} = props;
-  const correctlyQuestionsCount = questionsAmount - mistakes;
+  const {questionsCount, mistakesCount, onReplayButtonClick} = props;
+  const correctlyQuestionsCount = questionsCount - mistakesCount;
 
   return (
     <section className="result">
@@ -12,7 +12,7 @@ const WinScreen = (props) => {
         <img src="img/melody-logo.png" alt="Угадай мелодию" width="186" height="83" />
       </div>
       <h2 className="result__title">Вы настоящий меломан!</h2>
-      <p className="result__total">Вы ответили правильно на {correctlyQuestionsCount} вопросов и совершили {mistakes} ошибки</p>
+      <p className="result__total">Вы ответили правильно на {correctlyQuestionsCount} вопросов и совершили {mistakesCount} ошибки</p>
       <button
         className="replay"
         type="button"
@@ -25,8 +25,8 @@ const WinScreen = (props) => {
 };
 
 WinScreen.propTypes = {
-  questionsAmount: PropTypes.number.isRequired,
-  mistakes: PropTypes.number.isRequired,
+  questionsCount: PropTypes.number.isRequired,
+  mistakesCount: PropTypes.number.isRequired,
   onReplayButtonClick: PropTypes.func.isRequired,
 };
 

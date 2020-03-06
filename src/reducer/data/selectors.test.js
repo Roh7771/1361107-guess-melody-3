@@ -1,7 +1,6 @@
 import {getQuestions, getShaffledQuestions} from "./selectors";
 
 const AVATAR_URL = `https://api.adorable.io/avatars/128`;
-let id = 1;
 
 const questions = [
   {
@@ -10,19 +9,19 @@ const questions = [
     answers: [{
       src: `https://upload.wikimedia.org/wikipedia/commons/2/26/John_Hoopie_-_Don%27t_You_Know.ogg`,
       genre: `rock`,
-      id: id++,
+      id: 1,
     }, {
       src: `https://upload.wikimedia.org/wikipedia/commons/4/4d/2009-05-29MedBoogie.ogg`,
       genre: `blues`,
-      id: id++,
+      id: 2,
     }, {
       src: `https://upload.wikimedia.org/wikipedia/commons/2/21/03_Turning_Points.ogg`,
       genre: `jazz`,
-      id: id++,
+      id: 3,
     }, {
       src: `https://upload.wikimedia.org/wikipedia/commons/d/d7/Caleb_Baker_-_Crush_Song.ogg`,
       genre: `rock`,
-      id: id++,
+      id: 4,
     }],
   }, {
     type: `artist`,
@@ -33,15 +32,15 @@ const questions = [
     answers: [{
       picture: `${AVATAR_URL}/A`,
       artist: `Mozart`,
-      id: id++,
+      id: 1,
     }, {
       picture: `${AVATAR_URL}/AB`,
       artist: `Bach`,
-      id: id++,
+      id: 2,
     }, {
       picture: `${AVATAR_URL}/A`,
       artist: `Beethoven`,
-      id: id++,
+      id: 3,
     }],
   },
   {
@@ -53,15 +52,15 @@ const questions = [
     answers: [{
       picture: `${AVATAR_URL}/A`,
       artist: `Mozart`,
-      id: id++,
+      id: 1,
     }, {
       picture: `${AVATAR_URL}/AB`,
       artist: `Bach`,
-      id: id++,
+      id: 1,
     }, {
       picture: `${AVATAR_URL}/A`,
       artist: `Beethoven`,
-      id: id++,
+      id: 1,
     }],
   },
   {
@@ -73,15 +72,15 @@ const questions = [
     answers: [{
       picture: `${AVATAR_URL}/A`,
       artist: `Mozart`,
-      id: id++,
+      id: 1,
     }, {
       picture: `${AVATAR_URL}/AB`,
       artist: `Bach`,
-      id: id++,
+      id: 1,
     }, {
       picture: `${AVATAR_URL}/A`,
       artist: `Beethoven`,
-      id: id++,
+      id: 1,
     }],
   },
   {
@@ -93,15 +92,15 @@ const questions = [
     answers: [{
       picture: `${AVATAR_URL}/A`,
       artist: `Mozart`,
-      id: id++,
+      id: 1,
     }, {
       picture: `${AVATAR_URL}/AB`,
       artist: `Bach`,
-      id: id++,
+      id: 1,
     }, {
       picture: `${AVATAR_URL}/A`,
       artist: `Beethoven`,
-      id: id++,
+      id: 1,
     }],
   }
 ];

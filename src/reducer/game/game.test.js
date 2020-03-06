@@ -111,7 +111,7 @@ describe(`Reducer work correctly`, () => {
     expect(reducer(void 0, {})).toEqual({
       mistakes: 0,
       step: -1,
-      maxErrors: 3,
+      maxMistakes: 3,
     });
   });
 

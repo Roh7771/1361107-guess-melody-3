@@ -7,8 +7,8 @@ it(`Should WinScreen render correctly`, () => {
     .create(
         <WinScreen
           onReplayButtonClick={() => {}}
-          mistakes={5}
-          questionsAmount={10}
+          mistakesCount={5}
+          questionsCount={10}
         />, {
           createNodeMock: () => {
             return {};
